@@ -6,20 +6,31 @@
     <title>My GitHub Pages Profile</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #1c1c1c;
+            color: #e0e0e0;
+            overflow-x: hidden;
         }
         header {
-            background-color: #007acc;
-            color: #fff;
-            padding: 20px 0;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+            padding: 40px 0;
             text-align: center;
+            position: relative;
         }
         header h1 {
             margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+        header img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin-top: 20px;
+            border: 4px solid #0072ff;
         }
         nav {
             margin: 20px 0;
@@ -27,33 +38,51 @@
         }
         nav a {
             text-decoration: none;
-            color: #007acc;
-            margin: 0 15px;
+            color: #00c6ff;
+            margin: 0 20px;
             font-weight: bold;
+            font-size: 1.2em;
         }
         nav a:hover {
-            text-decoration: underline;
+            color: #0072ff;
         }
         section {
-            max-width: 800px;
+            max-width: 900px;
             margin: 20px auto;
             padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: #2c2c2c;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+        section h2 {
+            color: #00c6ff;
+            border-bottom: 2px solid #0072ff;
+            padding-bottom: 5px;
         }
         footer {
             text-align: center;
             margin-top: 20px;
-            padding: 10px;
-            background-color: #007acc;
+            padding: 15px;
+            background: linear-gradient(90deg, #0072ff, #00c6ff);
             color: white;
+        }
+        .signal-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,1) 60%), url('https://upload.wikimedia.org/wikipedia/commons/8/80/Sine_wave_4.ogg') center/cover;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
+    <div class="signal-bg"></div>
     <header>
         <h1>Welcome to My GitHub Pages Profile</h1>
+        <img src="https://www.linkedin.com/in/christopher-hagler-67b519336/picture" alt="Christopher Hagler's Profile Picture">
     </header>
 
     <nav>
@@ -69,9 +98,9 @@
     <section id="contact">
         <h2>Contact</h2>
         <p>If you'd like to connect, feel free to reach out via email, GitHub, or LinkedIn!</p>
-        <p>Email: <a href="mailto:haglerchristopher@gmail.com">haglerchristopher@gmail.com</a></p>
-        <p>GitHub: <a href="https://github.com/christopherhagler" target="_blank">github.com/christopherhagler</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/christopher-hagler-67b519336" target="_blank">linkedin.com/in/christopher-hagler-67b519336</a></p>
+        <p>Email: <a href="mailto:haglerchristopher@gmail.com" style="color: #00c6ff;">haglerchristopher@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/christopherhagler" target="_blank" style="color: #00c6ff;">github.com/christopherhagler</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/christopher-hagler-67b519336" target="_blank" style="color: #00c6ff;">linkedin.com/in/christopher-hagler-67b519336</a></p>
     </section>
 
     <footer>
