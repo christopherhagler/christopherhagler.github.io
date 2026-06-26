@@ -58,10 +58,10 @@ export const EXPERIENCE: ExperienceItem[] = [
     org: 'Dynetics',
     period: '2025 — Present',
     points: [
-      'Build system-level software in C/C++ for radar electronic warfare systems.',
-      'Implement DSP algorithms accelerated on CUDA, prototyped and validated in MATLAB.',
-      'Develop Python web services with React front ends for operator tooling.',
-      'Automate deployments across 32-server air-gapped environments with Ansible, and maintain GitLab CI/CD pipelines.',
+      'Develop high-performance, system-level software in C/C++ for radar electronic warfare applications.',
+      'Design and optimize GPU-accelerated digital signal processing, with rapid prototyping and validation in MATLAB.',
+      'Build full-stack web tooling — Python services with React interfaces — to support engineering workflows.',
+      'Architect and automate reliable build and deployment pipelines for secure, isolated computing environments.',
     ],
   },
   {
