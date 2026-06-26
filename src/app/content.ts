@@ -14,6 +14,7 @@ export interface ExperienceItem {
   org: string;
   period: string;
   points: string[];
+  link?: { label: string; url: string };
 }
 
 export interface Project {
@@ -74,6 +75,10 @@ export const EXPERIENCE: ExperienceItem[] = [
       'Developed the AI chat assistant for the Interos platform.',
       'Designed distributed, event-driven web services for supply-chain risk decisioning.',
     ],
+    link: {
+      label: 'Watch the Catastrophic Risk Model',
+      url: 'https://www.youtube.com/watch?v=RXsu0im7vno',
+    },
   },
   {
     role: 'Lead Software Engineer',
@@ -99,6 +104,11 @@ export const EXPERIENCE: ExperienceItem[] = [
 
 export const EDUCATION: EducationItem[] = [
   {
+    degree: 'Graduate Studies — Advanced Signal Processing',
+    school: 'Johns Hopkins University',
+    year: 'Present',
+  },
+  {
     degree: 'M.S. Electrical Engineering',
     school: 'Auburn University',
     year: '2025',
@@ -110,8 +120,10 @@ export const EDUCATION: EducationItem[] = [
   },
 ];
 
-export const PUBLICATION =
-  'Farrell, C., Wilson, R., Adams, M., Hagler, C., & Rist, N. (2024). “Development of a Wireless Sensing Module for Propulsion Testing.” AIAA Journal.';
+export const PUBLICATION = {
+  text: 'Farrell, C., Wilson, R., Adams, M., Hagler, C., & Rist, N. (2024). “Development of a Wireless Sensing Module for Propulsion Testing.” AIAA.',
+  url: 'https://arc.aiaa.org/doi/10.2514/6.2025-0538',
+};
 
 export const GITHUB_URL = 'https://github.com/christopherhagler';
 

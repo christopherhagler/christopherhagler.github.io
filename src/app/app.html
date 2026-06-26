@@ -44,6 +44,10 @@
         radar electronic-warfare systems: C/C++ system software, CUDA/MATLAB DSP,
         and the web tooling and air-gapped deployments around them.
       </p>
+      <p class="hero__now" [appReveal]="200">
+        <span class="pulse"></span>
+        Currently studying advanced signal processing at Johns Hopkins University.
+      </p>
       <div class="hero__actions" [appReveal]="240">
         <a class="btn btn--primary" href="#projects">View my work</a>
         <a class="btn btn--ghost" href="#contact">Contact me</a>
@@ -106,6 +110,13 @@
                   <li>{{ point }}</li>
                 }
               </ul>
+              @if (job.link) {
+                <a
+                  class="timeline__link"
+                  [href]="job.link.url"
+                  target="_blank"
+                  rel="noopener">{{ job.link.label }} ↗</a>
+              }
             </div>
           </article>
         }
@@ -126,7 +137,9 @@
         </div>
         <div class="edu__col">
           <h3 class="edu__heading">Publication</h3>
-          <p class="edu__pub">{{ publication }}</p>
+          <a class="edu__pub" [href]="publication.url" target="_blank" rel="noopener">
+            {{ publication.text }} <span class="edu__pub-arrow">↗</span>
+          </a>
         </div>
       </div>
     </div>

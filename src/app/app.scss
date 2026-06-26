@@ -204,6 +204,14 @@
   font-size: clamp(1.05rem, 2vw, 1.25rem);
   color: var(--text-muted);
 }
+.hero__now {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.6rem 0 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -405,6 +413,17 @@
 .timeline__points li::marker {
   color: var(--neon-violet);
 }
+.timeline__link {
+  display: inline-block;
+  margin-top: 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--neon-cyan);
+  transition: opacity 0.2s ease;
+}
+.timeline__link:hover {
+  opacity: 0.75;
+}
 
 /* ===================== Education / Publication ===================== */
 .edu {
@@ -449,10 +468,19 @@
   color: var(--text-dim);
 }
 .edu__pub {
+  display: inline-block;
   margin: 0;
   color: var(--text-muted);
   font-style: italic;
   max-width: 46ch;
+  transition: color 0.2s ease;
+}
+.edu__pub:hover {
+  color: var(--text);
+}
+.edu__pub-arrow {
+  color: var(--neon-cyan);
+  font-style: normal;
 }
 
 @media (max-width: 640px) {
