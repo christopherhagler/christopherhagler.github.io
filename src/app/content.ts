@@ -3,6 +3,20 @@
    needed.
    --------------------------------------------------------------------------- */
 
+export interface Stat {
+  value: string;
+  label: string;
+}
+
+export interface Post {
+  slug: string; // matches public/posts/<slug>.md
+  title: string;
+  date: string;
+  minutes: number;
+  summary: string;
+  tags: string[];
+}
+
 export interface SkillGroup {
   title: string;
   icon: string; // emoji or short glyph
@@ -29,6 +43,35 @@ export interface EducationItem {
   school: string;
   year: string;
 }
+
+export const STATS: Stat[] = [
+  { value: '11+', label: 'Years engineering' },
+  { value: '7', label: 'Engineers led' },
+  { value: '2', label: 'Degrees · CS & EE' },
+];
+
+// Posts render from public/posts/<slug>.md. Add an entry + matching file to
+// publish; remove an entry to unpublish. Newest first.
+export const POSTS: Post[] = [
+  {
+    slug: 'coffee-can-radar',
+    title: 'Building a Coffee-Can Radar',
+    date: 'Jun 2026',
+    minutes: 6,
+    summary:
+      'How a couple of soup cans, a handful of RF parts, and an audio cable turn into a radar that can measure range and speed.',
+    tags: ['Radar', 'RF', 'DSP'],
+  },
+  {
+    slug: 'cfar-detection',
+    title: 'CFAR Detection, Intuitively',
+    date: 'Jun 2026',
+    minutes: 7,
+    summary:
+      'Why a fixed threshold fails on real radar returns, and how constant-false-alarm-rate detection adapts to the noise around each cell.',
+    tags: ['Radar', 'DSP', 'Detection'],
+  },
+];
 
 export const SKILL_GROUPS: SkillGroup[] = [
   {

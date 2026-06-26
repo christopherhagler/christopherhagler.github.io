@@ -55,6 +55,7 @@ export class BackgroundComponent implements AfterViewInit, OnDestroy {
   private h = 0;
   private dpr = 1;
   private mouse = { x: -9999, y: -9999 };
+  private sweepAngle = 0;
   private readonly LINK_DIST = 130;
 
   private readonly onResize = () => this.resize();
@@ -114,6 +115,7 @@ export class BackgroundComponent implements AfterViewInit, OnDestroy {
   };
 
   private step(): void {
+    this.sweepAngle = (this.sweepAngle + 0.006) % (Math.PI * 2);
     for (const n of this.nodes) {
       n.x += n.vx;
       n.y += n.vy;
@@ -122,9 +124,64 @@ export class BackgroundComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  /** Subtle radar scope: concentric range rings + a rotating sweep. */
+  private drawRadar(): void {
+    const ctx = this.ctx;
+    const cx = this.w / 2;
+    const cy = this.h / 2;
+    const maxR = Math.min(this.w, this.h) * 0.46;
+
+    ctx.save();
+    ctx.translate(cx, cy);
+
+    // Range rings + crosshairs
+    ctx.strokeStyle = 'rgba(120, 180, 255, 0.05)';
+    ctx.lineWidth = 1;
+    for (let r = maxR / 4; r <= maxR; r += maxR / 4) {
+      ctx.beginPath();
+      ctx.arc(0, 0, r, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.moveTo(-maxR, 0);
+    ctx.lineTo(maxR, 0);
+    ctx.moveTo(0, -maxR);
+    ctx.lineTo(0, maxR);
+    ctx.stroke();
+
+    // Sweep wedge with a fading trail
+    const trail = 0.5; // radians
+    const grad = ctx.createConicGradient
+      ? ctx.createConicGradient(this.sweepAngle - trail, 0, 0)
+      : null;
+    if (grad) {
+      grad.addColorStop(0, 'rgba(34, 211, 238, 0)');
+      grad.addColorStop(trail / (Math.PI * 2), 'rgba(34, 211, 238, 0.12)');
+      grad.addColorStop(trail / (Math.PI * 2) + 0.0001, 'rgba(34, 211, 238, 0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, maxR, this.sweepAngle - trail, this.sweepAngle);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Leading edge line
+    ctx.strokeStyle = 'rgba(34, 211, 238, 0.28)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(Math.cos(this.sweepAngle) * maxR, Math.sin(this.sweepAngle) * maxR);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
   private draw(): void {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, this.w, this.h);
+
+    this.drawRadar();
 
     // Links
     for (let i = 0; i < this.nodes.length; i++) {

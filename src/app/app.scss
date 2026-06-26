@@ -218,6 +218,27 @@
   gap: 1rem;
   margin-top: 2rem;
 }
+.hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  margin: 2.6rem 0 0;
+  padding: 0;
+}
+.stat {
+  margin: 0;
+}
+.stat__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1;
+}
+.stat__label {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
 .hero__meta {
   display: flex;
   flex-wrap: wrap;
@@ -536,6 +557,185 @@
   color: var(--text-muted);
   background: var(--surface-strong);
   border: 1px solid var(--border);
+}
+
+/* ===================== Writing ===================== */
+.posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.2rem;
+}
+.post {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.post__meta {
+  display: flex;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 0.7rem;
+}
+.post__title {
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+}
+.post__summary {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 1.1rem;
+  flex: 1;
+}
+.post__tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.1rem;
+  padding: 0;
+}
+.post__tags li {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  color: var(--text-muted);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+}
+.post__cta {
+  font-weight: 600;
+  color: var(--neon-cyan);
+  transition: transform 0.2s ease;
+}
+.post:hover .post__cta {
+  transform: translateX(4px);
+}
+
+/* ===================== Post reader modal ===================== */
+.reader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(16px, 5vh, 80px) 16px;
+  background: rgba(4, 4, 8, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow-y: auto;
+  animation: fade 0.25s ease;
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.reader__panel {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(1.6rem, 4vw, 3rem);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: rise 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+.reader__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.reader__close:hover {
+  color: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+}
+.reader__meta {
+  display: flex;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-bottom: 1.4rem;
+}
+.reader__loading {
+  color: var(--text-muted);
+}
+.reader__body {
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+.reader__body h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--text);
+  margin-bottom: 1.2rem;
+}
+.reader__body h2 {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin: 2rem 0 0.8rem;
+}
+.reader__body p {
+  margin: 0 0 1.1rem;
+}
+.reader__body a {
+  color: var(--neon-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.reader__body strong {
+  color: var(--text);
+}
+.reader__body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--surface-strong);
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+  color: var(--neon-cyan);
+}
+.reader__body pre {
+  background: #07070b;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+  overflow-x: auto;
+  margin: 0 0 1.3rem;
+}
+.reader__body pre code {
+  background: none;
+  padding: 0;
+  color: var(--text-muted);
+}
+.reader__body ul {
+  margin: 0 0 1.2rem;
+  padding-left: 1.2rem;
+}
+.reader__body li {
+  margin-bottom: 0.4rem;
+}
+.reader__body li::marker {
+  color: var(--neon-violet);
 }
 
 /* ===================== Contact ===================== */

@@ -52,7 +52,15 @@
         <a class="btn btn--primary" href="#projects">View my work</a>
         <a class="btn btn--ghost" href="#contact">Contact me</a>
       </div>
-      <div class="hero__meta" [appReveal]="320">
+      <dl class="hero__stats" [appReveal]="300">
+        @for (stat of stats; track stat.label) {
+          <div class="stat">
+            <dt class="stat__value gradient-text">{{ stat.value }}</dt>
+            <dd class="stat__label">{{ stat.label }}</dd>
+          </div>
+        }
+      </dl>
+      <div class="hero__meta" [appReveal]="360">
         <a href="https://github.com/christopherhagler" target="_blank" rel="noopener">GitHub ↗</a>
         <a href="https://www.linkedin.com/in/christopher-hagler-67b519336" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a href="mailto:haglerchristopher@gmail.com">Email ↗</a>
@@ -186,10 +194,41 @@
     </div>
   </section>
 
+  <!-- ===================== WRITING ===================== -->
+  <section class="section" id="writing">
+    <div class="container">
+      <header class="section__head" appReveal>
+        <span class="section__index">04</span>
+        <h2 class="section__title"><span class="gradient-text">Writing</span></h2>
+        <p class="section__sub">Notes on radar, signals, and the systems around them.</p>
+      </header>
+
+      <div class="posts">
+        @for (post of posts; track post.slug; let i = $index) {
+          <button class="card post" [appReveal]="i * 90" (click)="openPost(post)">
+            <div class="post__meta">
+              <span>{{ post.date }}</span>
+              <span>·</span>
+              <span>{{ post.minutes }} min read</span>
+            </div>
+            <h3 class="post__title">{{ post.title }}</h3>
+            <p class="post__summary">{{ post.summary }}</p>
+            <ul class="post__tags">
+              @for (tag of post.tags; track tag) {
+                <li>{{ tag }}</li>
+              }
+            </ul>
+            <span class="post__cta">Read →</span>
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== CONTACT ===================== -->
   <section class="section section--contact" id="contact">
     <div class="container contact" appReveal>
-      <span class="section__index">04</span>
+      <span class="section__index">05</span>
       <h2 class="contact__title">
         Let's build something <span class="gradient-text">together.</span>
       </h2>
@@ -215,3 +254,22 @@
     <span class="footer__built">Built with Angular · deployed on GitHub Pages</span>
   </div>
 </footer>
+
+<!-- ===================== POST READER ===================== -->
+@if (activePost(); as post) {
+  <div class="reader" (click)="closePost()">
+    <article class="reader__panel" (click)="$event.stopPropagation()">
+      <button class="reader__close" (click)="closePost()" aria-label="Close">✕</button>
+      <div class="reader__meta">
+        <span>{{ post.date }}</span>
+        <span>·</span>
+        <span>{{ post.minutes }} min read</span>
+      </div>
+      @if (postLoading()) {
+        <p class="reader__loading">Loading…</p>
+      } @else {
+        <div class="reader__body" [innerHTML]="postHtml()"></div>
+      }
+    </article>
+  </div>
+}
