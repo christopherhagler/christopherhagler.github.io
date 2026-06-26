@@ -4,6 +4,7 @@ import { RevealDirective } from './reveal.directive';
 import {
   EDUCATION,
   EXPERIENCE,
+  GITHUB_URL,
   PROJECTS,
   PUBLICATION,
   SKILL_GROUPS,
@@ -31,6 +32,7 @@ export class App {
   protected readonly education: EducationItem[] = EDUCATION;
   protected readonly publication = PUBLICATION;
   protected readonly projects: Project[] = PROJECTS;
+  protected readonly githubUrl = GITHUB_URL;
   protected readonly year = new Date().getFullYear();
 
   protected readonly navLinks: NavLink[] = [

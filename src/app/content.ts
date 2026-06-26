@@ -113,30 +113,29 @@ export const EDUCATION: EducationItem[] = [
 export const PUBLICATION =
   'Farrell, C., Wilson, R., Adams, M., Hagler, C., & Rist, N. (2024). “Development of a Wireless Sensing Module for Propulsion Testing.” AIAA Journal.';
 
+export const GITHUB_URL = 'https://github.com/christopherhagler';
+
 export const PROJECTS: Project[] = [
   {
-    name: 'MIT Coffee-Can Radar',
+    name: 'packmule',
     blurb:
-      'A small FMCW radar built from the MIT design — measures range and the speed of moving targets via Doppler processing.',
-    tags: ['Radar', 'DSP', 'Analog'],
+      'A multi-registry package bundler written in C that mirrors and packages PyPI, npm, and RPM dependencies for delivery into air-gapped environments.',
+    tags: ['C', 'Systems', 'DevOps'],
+    link: 'https://github.com/christopherhagler/packmule',
   },
   {
-    name: 'Signal Processing Library',
+    name: 'radar-simulation',
     blurb:
-      'A DSP library built from numerical methods up — filters, transforms, and spectral tools written to deepen radar and DSP fundamentals.',
-    tags: ['DSP', 'Numerical Methods', 'MATLAB'],
+      'A MATLAB radar simulation modeling returns and signal processing — a sandbox for exploring detection and range/Doppler behavior.',
+    tags: ['MATLAB', 'Radar', 'DSP'],
+    link: 'https://github.com/christopherhagler/radar-simulation',
   },
   {
-    name: 'Digital Image Processing Library',
+    name: 'nvim',
     blurb:
-      'An image-processing library covering filtering, transforms, and segmentation, built as a learning aid for digital image processing.',
-    tags: ['Image Processing', 'C++'],
-  },
-  {
-    name: 'Intel x86 Bootloader',
-    blurb:
-      'A bootloader for x86 that brings the machine up from real mode into protected mode — low-level systems programming in assembly.',
-    tags: ['x86 Assembly', 'Systems'],
+      'My personal Neovim setup — a fast, Lua-configured editing environment tuned for C/C++, Python, and systems work.',
+    tags: ['Lua', 'Neovim', 'Tooling'],
+    link: 'https://github.com/christopherhagler/nvim',
   },
   {
     name: 'This Site',
