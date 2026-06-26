@@ -2,9 +2,12 @@ import { Component, HostListener, signal } from '@angular/core';
 import { BackgroundComponent } from './background.component';
 import { RevealDirective } from './reveal.directive';
 import {
+  EDUCATION,
   EXPERIENCE,
   PROJECTS,
+  PUBLICATION,
   SKILL_GROUPS,
+  type EducationItem,
   type ExperienceItem,
   type Project,
   type SkillGroup,
@@ -25,6 +28,8 @@ interface NavLink {
 export class App {
   protected readonly skillGroups: SkillGroup[] = SKILL_GROUPS;
   protected readonly experience: ExperienceItem[] = EXPERIENCE;
+  protected readonly education: EducationItem[] = EDUCATION;
+  protected readonly publication = PUBLICATION;
   protected readonly projects: Project[] = PROJECTS;
   protected readonly year = new Date().getFullYear();
 

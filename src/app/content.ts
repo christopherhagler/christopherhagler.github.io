@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------------------
    Site content. Edit these arrays to update the site — no template changes
-   needed. Placeholder entries are marked; swap in your real details.
+   needed.
    --------------------------------------------------------------------------- */
 
 export interface SkillGroup {
@@ -23,67 +23,120 @@ export interface Project {
   link?: string;
 }
 
+export interface EducationItem {
+  degree: string;
+  school: string;
+  year: string;
+}
+
 export const SKILL_GROUPS: SkillGroup[] = [
   {
-    title: 'Software',
+    title: 'Languages',
     icon: '⌘',
-    items: ['TypeScript', 'Python', 'C / C++', 'Rust', 'Angular', 'Node.js'],
+    items: ['C / C++', 'Python', 'Java', 'CUDA', 'x86 Assembly', 'SQL'],
   },
   {
     title: 'Signals & RF',
     icon: '〜',
-    items: ['Radar (FMCW / pulse)', 'LiDAR', 'DSP', 'MATLAB', 'GNU Radio'],
+    items: ['Radar', 'Electronic Warfare', 'DSP', 'MATLAB', 'Numerical methods'],
   },
   {
-    title: 'Electrical Eng.',
-    icon: '⚡',
-    items: ['PCB design', 'Embedded / MCU', 'FPGA', 'Analog front-ends', 'Sensors'],
+    title: 'Web & Frameworks',
+    icon: '◇',
+    items: ['React', 'Angular', 'FastAPI', 'Spring / Spring Boot', 'REST APIs'],
   },
   {
-    title: 'Tooling',
+    title: 'Platforms & DevOps',
     icon: '⚙',
-    items: ['Git', 'Linux', 'Docker', 'CI/CD', 'Cloud'],
+    items: ['GitLab CI/CD', 'Ansible', 'Linux / Unix', 'Air-gapped systems', 'PostgreSQL'],
   },
 ];
 
-// TODO: replace with your real roles.
 export const EXPERIENCE: ExperienceItem[] = [
   {
-    role: 'Software / Electrical Engineer',
-    org: 'Your Company',
-    period: '2023 — Present',
+    role: 'Radar Electronic Warfare Software Engineer',
+    org: 'Dynetics',
+    period: '2025 — Present',
     points: [
-      'Design and build software and signal-processing systems end to end.',
-      'Work across radar and LiDAR sensing pipelines from RF front-end to data.',
-      'Ship production tooling and infrastructure for high-throughput workloads.',
+      'Build system-level software in C/C++ for radar electronic warfare systems.',
+      'Implement DSP algorithms accelerated on CUDA, prototyped and validated in MATLAB.',
+      'Develop Python web services with React front ends for operator tooling.',
+      'Automate deployments across 32-server air-gapped environments with Ansible, and maintain GitLab CI/CD pipelines.',
     ],
   },
   {
-    role: 'Engineering Intern',
-    org: 'Previous Org',
-    period: '2022 — 2023',
+    role: 'Lead Software Engineer',
+    org: 'Interos Inc',
+    period: 'Sept 2022 — Feb 2025',
     points: [
-      'Prototyped embedded firmware and hardware test fixtures.',
-      'Automated data collection and analysis for sensor characterization.',
+      'Migrated the commercial platform to gov-cloud infrastructure for FedRAMP compliance, and moved data stores from Snowflake to PostgreSQL.',
+      'Built a geocoding service over 700M+ open-source address records using NLP — the engine behind Interos’ Catastrophic Risk Model.',
+      'Developed the AI chat assistant for the Interos platform.',
+      'Designed distributed, event-driven web services for supply-chain risk decisioning.',
+    ],
+  },
+  {
+    role: 'Lead Software Engineer',
+    org: 'Total System Services (TSYS)',
+    period: 'Aug 2018 — Sept 2022',
+    points: [
+      'Led a team of 7 modernizing legacy mainframe COBOL into cloud-native Java/Spring applications.',
+      'Led a team of 4 migrating ColdFusion applications to cloud-ready web apps.',
+      'Gathered requirements, reported to stakeholders, and hosted/judged hackathons at companies and universities.',
+    ],
+  },
+  {
+    role: 'Software Engineer III',
+    org: 'Equifax',
+    period: 'Mar 2015 — Aug 2018',
+    points: [
+      'Maintained and enhanced the credit-risk decisioning pipeline and its domain-specific language and compiler.',
+      'Implemented Equifax’s NeuroDecision technology.',
+      'Collaborated daily with nine scrum teams across seven countries.',
     ],
   },
 ];
 
-// TODO: replace with your real projects + links.
-export const PROJECTS: Project[] = [
+export const EDUCATION: EducationItem[] = [
   {
-    name: 'Radar Signal Toolkit',
-    blurb:
-      'Processing pipeline for FMCW radar — range/Doppler maps, CFAR detection, and clustering, with a real-time visualizer.',
-    tags: ['Python', 'DSP', 'NumPy'],
-    link: 'https://github.com/christopherhagler',
+    degree: 'M.S. Electrical Engineering',
+    school: 'Auburn University',
+    year: '2025',
   },
   {
-    name: 'LiDAR Point-Cloud Viewer',
+    degree: 'B.S. Computer Science',
+    school: 'Columbus State University',
+    year: '2014',
+  },
+];
+
+export const PUBLICATION =
+  'Farrell, C., Wilson, R., Adams, M., Hagler, C., & Rist, N. (2024). “Development of a Wireless Sensing Module for Propulsion Testing.” AIAA Journal.';
+
+export const PROJECTS: Project[] = [
+  {
+    name: 'MIT Coffee-Can Radar',
     blurb:
-      'GPU-accelerated viewer for streaming LiDAR scans with segmentation and frame-by-frame inspection.',
-    tags: ['C++', 'OpenGL', 'LiDAR'],
-    link: 'https://github.com/christopherhagler',
+      'A small FMCW radar built from the MIT design — measures range and the speed of moving targets via Doppler processing.',
+    tags: ['Radar', 'DSP', 'Analog'],
+  },
+  {
+    name: 'Signal Processing Library',
+    blurb:
+      'A DSP library built from numerical methods up — filters, transforms, and spectral tools written to deepen radar and DSP fundamentals.',
+    tags: ['DSP', 'Numerical Methods', 'MATLAB'],
+  },
+  {
+    name: 'Digital Image Processing Library',
+    blurb:
+      'An image-processing library covering filtering, transforms, and segmentation, built as a learning aid for digital image processing.',
+    tags: ['Image Processing', 'C++'],
+  },
+  {
+    name: 'Intel x86 Bootloader',
+    blurb:
+      'A bootloader for x86 that brings the machine up from real mode into protected mode — low-level systems programming in assembly.',
+    tags: ['x86 Assembly', 'Systems'],
   },
   {
     name: 'This Site',

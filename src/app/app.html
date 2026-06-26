@@ -31,17 +31,18 @@
   <section class="hero" id="about">
     <div class="container hero__inner">
       <p class="hero__eyebrow" appReveal>
-        <span class="pulse"></span> Software &amp; Electrical Engineer
+        <span class="pulse"></span> Radar EW Software Engineer @ Dynetics
       </p>
       <h1 class="hero__title" [appReveal]="80">
-        Building systems that
-        <span class="gradient-text">sense, compute,</span>
-        and ship.
+        Where software meets
+        <span class="gradient-text">radar, signals,</span>
+        and systems.
       </h1>
       <p class="hero__lede" [appReveal]="160">
-        I'm Christopher — an engineer working across software and electrical
-        engineering. I'm happiest where code meets the physical world: radar and
-        LiDAR sensing, signal processing, and high-performance systems.
+        I'm Christopher — a software engineer with 11+ years of experience and a
+        B.S. in Computer Science and M.S. in Electrical Engineering. Today I build
+        radar electronic-warfare systems: C/C++ system software, CUDA/MATLAB DSP,
+        and the web tooling and air-gapped deployments around them.
       </p>
       <div class="hero__actions" [appReveal]="240">
         <a class="btn btn--primary" href="#projects">View my work</a>
@@ -110,10 +111,23 @@
         }
       </div>
 
-      <div class="section__cta" appReveal>
-        <a class="btn btn--ghost" href="/resume.pdf" target="_blank" rel="noopener">
-          Download résumé ↓
-        </a>
+      <div class="edu" appReveal>
+        <div class="edu__col">
+          <h3 class="edu__heading">Education</h3>
+          <ul class="edu__list">
+            @for (item of education; track item.degree) {
+              <li class="edu__item">
+                <span class="edu__degree">{{ item.degree }}</span>
+                <span class="edu__school">{{ item.school }}</span>
+                <span class="edu__year">{{ item.year }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="edu__col">
+          <h3 class="edu__heading">Publication</h3>
+          <p class="edu__pub">{{ publication }}</p>
+        </div>
       </div>
     </div>
   </section>
