@@ -31,7 +31,10 @@ jobs:
 
       - name: SPA fallback + disable Jekyll
         run: |
-          cp dist/portfolio/browser/index.html dist/portfolio/browser/404.html
+          # Real routes (home + each post) are prerendered to their own HTML.
+          # index.csr.html is the un-prerendered shell; use it for unknown URLs
+          # so the SPA boots and the wildcard route redirects home.
+          cp dist/portfolio/browser/index.csr.html dist/portfolio/browser/404.html
           touch dist/portfolio/browser/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3

@@ -2,7 +2,7 @@
 
 <!-- ===================== NAV ===================== -->
 <header class="nav" [class.nav--scrolled]="scrolled()">
-  <a class="nav__brand" href="#top" (click)="closeMenu()">
+  <a class="nav__brand" routerLink="/" (click)="closeMenu()">
     <span class="nav__logo">CH</span>
     <span class="nav__brandtext">Christopher Hagler</span>
   </a>
@@ -17,7 +17,7 @@
 
   <nav class="nav__links" [class.is-open]="menuOpen()">
     @for (link of navLinks; track link.id) {
-      <a [href]="'#' + link.id" (click)="closeMenu()">{{ link.label }}</a>
+      <a [routerLink]="['/']" [fragment]="link.id" (click)="closeMenu()">{{ link.label }}</a>
     }
     <a
       class="nav__cta"
@@ -26,227 +26,7 @@
   </nav>
 </header>
 
-<main id="top">
-  <!-- ===================== HERO / ABOUT ===================== -->
-  <section class="hero" id="about">
-    <div class="container hero__inner">
-      <p class="hero__eyebrow" appReveal>
-        <span class="pulse"></span> Radar EW Software Engineer @ Dynetics
-      </p>
-      <h1 class="hero__title" [appReveal]="80">
-        Where software meets
-        <span class="gradient-text">radar, signals,</span>
-        and systems.
-      </h1>
-      <p class="hero__lede" [appReveal]="160">
-        I'm Christopher — a software engineer with 11+ years of experience and a
-        B.S. in Computer Science and M.S. in Electrical Engineering. Today I build
-        radar electronic-warfare systems: C/C++ system software, CUDA/MATLAB DSP,
-        and the web tooling and air-gapped deployments around them.
-      </p>
-      <p class="hero__now" [appReveal]="200">
-        <span class="pulse"></span>
-        Currently studying advanced signal processing at Johns Hopkins University.
-      </p>
-      <div class="hero__actions" [appReveal]="240">
-        <a class="btn btn--primary" href="#projects">View my work</a>
-        <a class="btn btn--ghost" href="#contact">Contact me</a>
-      </div>
-      <dl class="hero__stats" [appReveal]="300">
-        @for (stat of stats; track stat.label) {
-          <div class="stat">
-            <dt class="stat__value gradient-text">{{ stat.value }}</dt>
-            <dd class="stat__label">{{ stat.label }}</dd>
-          </div>
-        }
-      </dl>
-      <div class="hero__meta" [appReveal]="360">
-        <a href="https://github.com/christopherhagler" target="_blank" rel="noopener">GitHub ↗</a>
-        <a href="https://www.linkedin.com/in/christopher-hagler-67b519336" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a href="mailto:haglerchristopher@gmail.com">Email ↗</a>
-      </div>
-    </div>
-    <a class="hero__scroll" href="#skills" aria-label="Scroll down">↓</a>
-  </section>
-
-  <!-- ===================== SKILLS ===================== -->
-  <section class="section" id="skills">
-    <div class="container">
-      <header class="section__head" appReveal>
-        <span class="section__index">01</span>
-        <h2 class="section__title">Skills &amp; <span class="gradient-text">Tech</span></h2>
-        <p class="section__sub">The toolbox I reach for across hardware and software.</p>
-      </header>
-
-      <div class="grid grid--skills">
-        @for (group of skillGroups; track group.title; let i = $index) {
-          <article class="card skill" [appReveal]="i * 90">
-            <div class="skill__icon">{{ group.icon }}</div>
-            <h3 class="skill__title">{{ group.title }}</h3>
-            <ul class="skill__list">
-              @for (item of group.items; track item) {
-                <li>{{ item }}</li>
-              }
-            </ul>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== EXPERIENCE ===================== -->
-  <section class="section" id="experience">
-    <div class="container">
-      <header class="section__head" appReveal>
-        <span class="section__index">02</span>
-        <h2 class="section__title"><span class="gradient-text">Experience</span></h2>
-        <p class="section__sub">Where I've worked and what I built.</p>
-      </header>
-
-      <div class="timeline">
-        @for (job of experience; track job.role; let i = $index) {
-          <article class="timeline__item" [appReveal]="i * 120">
-            <div class="timeline__dot"></div>
-            <div class="card timeline__card">
-              <div class="timeline__top">
-                <h3 class="timeline__role">{{ job.role }}</h3>
-                <span class="timeline__period">{{ job.period }}</span>
-              </div>
-              <p class="timeline__org">{{ job.org }}</p>
-              <ul class="timeline__points">
-                @for (point of job.points; track point) {
-                  <li>{{ point }}</li>
-                }
-              </ul>
-              @if (job.link) {
-                <a
-                  class="timeline__link"
-                  [href]="job.link.url"
-                  target="_blank"
-                  rel="noopener">{{ job.link.label }} ↗</a>
-              }
-            </div>
-          </article>
-        }
-      </div>
-
-      <div class="edu" appReveal>
-        <div class="edu__col">
-          <h3 class="edu__heading">Education</h3>
-          <ul class="edu__list">
-            @for (item of education; track item.degree) {
-              <li class="edu__item">
-                <span class="edu__degree">{{ item.degree }}</span>
-                <span class="edu__school">{{ item.school }}</span>
-                <span class="edu__year">{{ item.year }}</span>
-              </li>
-            }
-          </ul>
-        </div>
-        <div class="edu__col">
-          <h3 class="edu__heading">Publication</h3>
-          <a class="edu__pub" [href]="publication.url" target="_blank" rel="noopener">
-            {{ publication.text }} <span class="edu__pub-arrow">↗</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== PROJECTS ===================== -->
-  <section class="section" id="projects">
-    <div class="container">
-      <header class="section__head" appReveal>
-        <span class="section__index">03</span>
-        <h2 class="section__title"><span class="gradient-text">Projects</span></h2>
-        <p class="section__sub">A few things I've designed and built.</p>
-      </header>
-
-      <div class="grid grid--projects">
-        @for (project of projects; track project.name; let i = $index) {
-          <article class="card project" [appReveal]="i * 90">
-            <div class="project__head">
-              <h3 class="project__name">{{ project.name }}</h3>
-              @if (project.link) {
-                <a
-                  class="project__link"
-                  [href]="project.link"
-                  target="_blank"
-                  rel="noopener"
-                  [attr.aria-label]="'Open ' + project.name">↗</a>
-              }
-            </div>
-            <p class="project__blurb">{{ project.blurb }}</p>
-            <ul class="project__tags">
-              @for (tag of project.tags; track tag) {
-                <li>{{ tag }}</li>
-              }
-            </ul>
-          </article>
-        }
-      </div>
-
-      <div class="section__cta" appReveal>
-        <a class="btn btn--ghost" [href]="githubUrl" target="_blank" rel="noopener">
-          View all on GitHub ↗
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== WRITING ===================== -->
-  <section class="section" id="writing">
-    <div class="container">
-      <header class="section__head" appReveal>
-        <span class="section__index">04</span>
-        <h2 class="section__title"><span class="gradient-text">Writing</span></h2>
-        <p class="section__sub">Notes on radar, signals, and the systems around them.</p>
-      </header>
-
-      <div class="posts">
-        @for (post of posts; track post.slug; let i = $index) {
-          <button class="card post" [appReveal]="i * 90" (click)="openPost(post)">
-            <div class="post__meta">
-              <span>{{ post.date }}</span>
-              <span>·</span>
-              <span>{{ post.minutes }} min read</span>
-            </div>
-            <h3 class="post__title">{{ post.title }}</h3>
-            <p class="post__summary">{{ post.summary }}</p>
-            <ul class="post__tags">
-              @for (tag of post.tags; track tag) {
-                <li>{{ tag }}</li>
-              }
-            </ul>
-            <span class="post__cta">Read →</span>
-          </button>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== CONTACT ===================== -->
-  <section class="section section--contact" id="contact">
-    <div class="container contact" appReveal>
-      <span class="section__index">05</span>
-      <h2 class="contact__title">
-        Let's build something <span class="gradient-text">together.</span>
-      </h2>
-      <p class="contact__sub">
-        Open to interesting problems in software, sensing, and signals.
-        The fastest way to reach me is email.
-      </p>
-      <a class="btn btn--primary btn--lg" href="mailto:haglerchristopher@gmail.com">
-        haglerchristopher@gmail.com
-      </a>
-      <div class="contact__links">
-        <a href="https://github.com/christopherhagler" target="_blank" rel="noopener">GitHub</a>
-        <span>·</span>
-        <a href="https://www.linkedin.com/in/christopher-hagler-67b519336" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-  </section>
-</main>
+<router-outlet />
 
 <footer class="footer">
   <div class="container footer__inner">
@@ -254,22 +34,3 @@
     <span class="footer__built">Built with Angular · deployed on GitHub Pages</span>
   </div>
 </footer>
-
-<!-- ===================== POST READER ===================== -->
-@if (activePost(); as post) {
-  <div class="reader" (click)="closePost()">
-    <article class="reader__panel" (click)="$event.stopPropagation()">
-      <button class="reader__close" (click)="closePost()" aria-label="Close">✕</button>
-      <div class="reader__meta">
-        <span>{{ post.date }}</span>
-        <span>·</span>
-        <span>{{ post.minutes }} min read</span>
-      </div>
-      @if (postLoading()) {
-        <p class="reader__loading">Loading…</p>
-      } @else {
-        <div class="reader__body" [innerHTML]="postHtml()"></div>
-      }
-    </article>
-  </div>
-}

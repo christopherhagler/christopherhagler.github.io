@@ -1,0 +1,31 @@
+@if (post(); as p) {
+  <article class="reader-page">
+    <div class="container reader-page__inner">
+      <a class="reader-page__back" routerLink="/" fragment="writing">← All writing</a>
+
+      <div class="reader__meta reader-page__meta">
+        <span>{{ p.date }}</span>
+        <span>·</span>
+        <span>{{ p.minutes }} min read</span>
+      </div>
+
+      <div class="reader__body" [innerHTML]="body()"></div>
+
+      <ul class="post__tags reader-page__tags">
+        @for (tag of p.tags; track tag) {
+          <li>{{ tag }}</li>
+        }
+      </ul>
+
+      <a class="reader-page__back" routerLink="/" fragment="writing">← All writing</a>
+    </div>
+  </article>
+} @else if (notFound()) {
+  <section class="container reader-page reader-page--missing">
+    <h1>Post not found</h1>
+    <p>
+      That post doesn't exist or has moved.
+      <a routerLink="/" fragment="writing">Back to writing →</a>
+    </p>
+  </section>
+}

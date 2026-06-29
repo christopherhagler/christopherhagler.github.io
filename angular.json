@@ -18,11 +18,16 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "outputMode": "static",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "loader": {
+              ".md": "text"
+            },
             "assets": [
               {
                 "glob": "**/*",
@@ -30,7 +35,10 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/app/app.scss",
+              "node_modules/highlight.js/styles/github-dark.css",
+              "node_modules/katex/dist/katex.min.css"
             ]
           },
           "configurations": {

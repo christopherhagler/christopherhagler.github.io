@@ -3,11 +3,6 @@
    needed.
    --------------------------------------------------------------------------- */
 
-export interface Stat {
-  value: string;
-  label: string;
-}
-
 export interface Post {
   slug: string; // matches public/posts/<slug>.md
   title: string;
@@ -20,6 +15,7 @@ export interface Post {
 export interface SkillGroup {
   title: string;
   icon: string; // emoji or short glyph
+  blurb: string; // one line on how these fit together
   items: string[];
 }
 
@@ -44,14 +40,8 @@ export interface EducationItem {
   year: string;
 }
 
-export const STATS: Stat[] = [
-  { value: '11+', label: 'Years engineering' },
-  { value: '7', label: 'Engineers led' },
-  { value: '2', label: 'Degrees · CS & EE' },
-];
-
-// Posts render from public/posts/<slug>.md. Add an entry + matching file to
-// publish; remove an entry to unpublish. Newest first.
+// Writing-list metadata. Each entry needs a matching src/posts/<slug>.md and a
+// line in post-content.ts (see the comment there). Newest first.
 export const POSTS: Post[] = [
   {
     slug: 'coffee-can-radar',
@@ -75,24 +65,28 @@ export const POSTS: Post[] = [
 
 export const SKILL_GROUPS: SkillGroup[] = [
   {
-    title: 'Languages',
+    title: 'Systems & Performance',
     icon: '⌘',
-    items: ['C / C++', 'Python', 'Java', 'CUDA', 'x86 Assembly', 'SQL'],
+    blurb: 'Low-level C/C++ and GPU code where every microsecond counts.',
+    items: ['C / C++', 'CUDA', 'Python', 'Bash', 'Multithreading'],
   },
   {
-    title: 'Signals & RF',
+    title: 'Radar & Signals',
     icon: '〜',
+    blurb: 'Turning noisy RF returns into detections and decisions.',
     items: ['Radar', 'Electronic Warfare', 'DSP', 'MATLAB', 'Numerical methods'],
   },
   {
-    title: 'Web & Frameworks',
+    title: 'Full-Stack & Services',
     icon: '◇',
-    items: ['React', 'Angular', 'FastAPI', 'Spring / Spring Boot', 'REST APIs'],
+    blurb: 'The web tooling and APIs that put the systems to work.',
+    items: ['React', 'Java', 'Python / FastAPI', 'REST APIs', 'PostgreSQL'],
   },
   {
-    title: 'Platforms & DevOps',
+    title: 'Delivery & Infrastructure',
     icon: '⚙',
-    items: ['GitLab CI/CD', 'Ansible', 'Linux / Unix', 'Air-gapped systems', 'PostgreSQL'],
+    blurb: 'Shipping reliably into secure, air-gapped environments.',
+    items: ['Linux / Unix', 'Ansible', 'GitLab CI/CD', 'Air-gapped builds'],
   },
 ];
 

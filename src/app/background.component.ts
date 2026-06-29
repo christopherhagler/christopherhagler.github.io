@@ -4,20 +4,15 @@ import {
   ElementRef,
   NgZone,
   OnDestroy,
+  PLATFORM_ID,
   inject,
   viewChild,
 } from '@angular/core';
-
-interface Node {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-}
+import { isPlatformBrowser } from '@angular/common';
 
 /**
- * Animated "constellation" canvas: drifting nodes linked when close, with a
- * cursor-reactive glow. Pauses when offscreen and respects reduced-motion.
+ * Animated radar-scope canvas: concentric range rings and a rotating sweep
+ * over a soft gradient. Pauses when offscreen and respects reduced-motion.
  */
 @Component({
   selector: 'app-background',
@@ -47,24 +42,20 @@ interface Node {
 export class BackgroundComponent implements AfterViewInit, OnDestroy {
   private readonly canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
   private readonly zone = inject(NgZone);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   private ctx!: CanvasRenderingContext2D;
-  private nodes: Node[] = [];
   private raf = 0;
   private w = 0;
   private h = 0;
   private dpr = 1;
-  private mouse = { x: -9999, y: -9999 };
   private sweepAngle = 0;
-  private readonly LINK_DIST = 130;
 
   private readonly onResize = () => this.resize();
-  private readonly onMove = (e: MouseEvent) => {
-    this.mouse.x = e.clientX;
-    this.mouse.y = e.clientY;
-  };
 
   ngAfterViewInit(): void {
+    if (!this.isBrowser) return; // canvas/animation is browser-only (skip during prerender)
+
     const canvas = this.canvasRef().nativeElement;
     this.ctx = canvas.getContext('2d')!;
 
@@ -80,14 +71,13 @@ export class BackgroundComponent implements AfterViewInit, OnDestroy {
       return;
     }
 
-    window.addEventListener('mousemove', this.onMove, { passive: true });
     this.zone.runOutsideAngular(() => this.loop());
   }
 
   ngOnDestroy(): void {
+    if (!this.isBrowser) return;
     cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.onResize);
-    window.removeEventListener('mousemove', this.onMove);
   }
 
   private resize(): void {
@@ -98,14 +88,6 @@ export class BackgroundComponent implements AfterViewInit, OnDestroy {
     canvas.width = this.w * this.dpr;
     canvas.height = this.h * this.dpr;
     this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
-
-    const target = Math.min(90, Math.floor((this.w * this.h) / 16000));
-    this.nodes = Array.from({ length: target }, () => ({
-      x: Math.random() * this.w,
-      y: Math.random() * this.h,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-    }));
   }
 
   private loop = (): void => {
@@ -116,12 +98,6 @@ export class BackgroundComponent implements AfterViewInit, OnDestroy {
 
   private step(): void {
     this.sweepAngle = (this.sweepAngle + 0.006) % (Math.PI * 2);
-    for (const n of this.nodes) {
-      n.x += n.vx;
-      n.y += n.vy;
-      if (n.x < 0 || n.x > this.w) n.vx *= -1;
-      if (n.y < 0 || n.y > this.h) n.vy *= -1;
-    }
   }
 
   /** Subtle radar scope: concentric range rings + a rotating sweep. */
@@ -180,39 +156,6 @@ export class BackgroundComponent implements AfterViewInit, OnDestroy {
   private draw(): void {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, this.w, this.h);
-
     this.drawRadar();
-
-    // Links
-    for (let i = 0; i < this.nodes.length; i++) {
-      const a = this.nodes[i];
-      for (let j = i + 1; j < this.nodes.length; j++) {
-        const b = this.nodes[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < this.LINK_DIST) {
-          const alpha = (1 - dist / this.LINK_DIST) * 0.32;
-          ctx.strokeStyle = `rgba(120, 180, 255, ${alpha})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    // Nodes + cursor glow
-    for (const n of this.nodes) {
-      const md = Math.hypot(n.x - this.mouse.x, n.y - this.mouse.y);
-      const near = md < 160;
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, near ? 2.6 : 1.6, 0, Math.PI * 2);
-      ctx.fillStyle = near
-        ? 'rgba(34, 211, 238, 0.95)'
-        : 'rgba(168, 180, 220, 0.55)';
-      ctx.fill();
-    }
   }
 }
