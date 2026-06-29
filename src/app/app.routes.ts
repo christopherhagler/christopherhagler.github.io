@@ -8,5 +8,10 @@ export const routes: Routes = [
     path: 'writing/:slug',
     loadComponent: () => import('./post-page').then((m) => m.PostPage),
   },
+  {
+    path: 'playground',
+    title: 'Interactive CFAR detector — Christopher Hagler',
+    loadComponent: () => import('./playground').then((m) => m.Playground),
+  },
   { path: '**', redirectTo: '' },
 ];

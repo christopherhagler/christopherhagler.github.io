@@ -1,0 +1,63 @@
+<section class="section playground">
+  <div class="container">
+    <header class="section__head">
+      <span class="section__index">CFAR</span>
+      <h1 class="section__title">Interactive <span class="gradient-text">CFAR</span> detector</h1>
+      <p class="section__sub">
+        A synthetic range profile — exponential noise with four injected targets —
+        run through a cell-averaging CFAR detector. Drag the controls and watch the
+        adaptive threshold and detections respond. Pairs with
+        <a class="playground__link" routerLink="/writing/cfar-detection">CFAR Detection, Intuitively</a>.
+      </p>
+    </header>
+
+    <div class="card cfar">
+      <canvas #canvas class="cfar__canvas" aria-label="CFAR detector range profile"></canvas>
+
+      <ul class="cfar__legend">
+        <li><span class="dot" style="background:#8893ad"></span> signal</li>
+        <li><span class="dot" style="background:#a855f7"></span> CFAR threshold</li>
+        <li><span class="dot" style="background:#34d399"></span> hit</li>
+        <li><span class="dot" style="background:#f472b6"></span> false alarm</li>
+      </ul>
+
+      <div class="cfar__controls">
+        <label class="cfar__control">
+          <span class="cfar__label">Training cells / side <b>{{ trainingCells() }}</b></span>
+          <input type="range" min="4" max="24" step="1"
+            [value]="trainingCells()" (input)="setTraining($any($event.target).value)" />
+        </label>
+
+        <label class="cfar__control">
+          <span class="cfar__label">Guard cells / side <b>{{ guardCells() }}</b></span>
+          <input type="range" min="0" max="6" step="1"
+            [value]="guardCells()" (input)="setGuard($any($event.target).value)" />
+        </label>
+
+        <label class="cfar__control">
+          <span class="cfar__label">Threshold offset <b>{{ thresholdDb() }} dB</b></span>
+          <input type="range" min="3" max="20" step="0.5"
+            [value]="thresholdDb()" (input)="setThreshold($any($event.target).value)" />
+        </label>
+      </div>
+
+      <div class="cfar__footer">
+        <div class="cfar__stats">
+          <span class="cfar__stat"><b>{{ hits() }}/{{ targetCount }}</b> targets detected</span>
+          <span class="cfar__stat cfar__stat--fa"><b>{{ falseAlarms() }}</b> false alarms</span>
+        </div>
+        <button class="btn btn--ghost btn--sm" (click)="regenerate()">↻ New noise</button>
+      </div>
+    </div>
+
+    <p class="playground__hint">
+      Try it: raise the threshold to kill false alarms — but push too far and the
+      weak 5&nbsp;dB target drops out. Add guard cells and the threshold stops
+      leaking past strong targets.
+    </p>
+
+    <div class="section__cta">
+      <a class="btn btn--ghost" routerLink="/">← Back home</a>
+    </div>
+  </div>
+</section>

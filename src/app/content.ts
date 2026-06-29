@@ -4,9 +4,10 @@
    --------------------------------------------------------------------------- */
 
 export interface Post {
-  slug: string; // matches public/posts/<slug>.md
+  slug: string; // matches src/posts/<slug>.md
   title: string;
-  date: string;
+  date: string; // display date, e.g. "Jun 2026"
+  published: string; // machine date, ISO "YYYY-MM-DD" (sitemap, RSS, JSON-LD)
   minutes: number;
   summary: string;
   tags: string[];
@@ -47,6 +48,7 @@ export const POSTS: Post[] = [
     slug: 'coffee-can-radar',
     title: 'Building a Coffee-Can Radar',
     date: 'Jun 2026',
+    published: '2026-06-25',
     minutes: 6,
     summary:
       'How a couple of soup cans, a handful of RF parts, and an audio cable turn into a radar that can measure range and speed.',
@@ -56,6 +58,7 @@ export const POSTS: Post[] = [
     slug: 'cfar-detection',
     title: 'CFAR Detection, Intuitively',
     date: 'Jun 2026',
+    published: '2026-06-18',
     minutes: 7,
     summary:
       'Why a fixed threshold fails on real radar returns, and how constant-false-alarm-rate detection adapts to the noise around each cell.',

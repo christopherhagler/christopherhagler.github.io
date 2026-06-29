@@ -51,6 +51,10 @@ app-post-page {
   font-size: 1.05rem;
   font-family: var(--font-mono);
 }
+.btn--sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
 
 /* ===================== Nav ===================== */
 .nav {
@@ -860,4 +864,100 @@ app-post-page {
   .nav__links a {
     font-size: 1.2rem;
   }
+}
+
+/* ===================== Playground / CFAR demo ===================== */
+.playground {
+  padding-top: clamp(110px, 16vh, 170px);
+}
+.playground__link {
+  color: var(--neon-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cfar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+.cfar__canvas {
+  width: 100%;
+  height: 360px;
+  display: block;
+  border-radius: 12px;
+  background: #07070b;
+  border: 1px solid var(--border);
+}
+.cfar__legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.cfar__legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cfar__legend .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+.cfar__controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem 1.6rem;
+}
+.cfar__control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cfar__label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.cfar__label b {
+  color: var(--neon-cyan);
+  font-family: var(--font-mono);
+}
+.cfar__control input[type='range'] {
+  width: 100%;
+  accent-color: var(--neon-violet);
+  cursor: pointer;
+}
+.cfar__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 1.2rem;
+}
+.cfar__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.cfar__stat b {
+  color: var(--text);
+  font-family: var(--font-mono);
+}
+.cfar__stat--fa b {
+  color: var(--neon-pink);
+}
+.playground__hint {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  max-width: 640px;
+  margin: 1.6rem 0 0;
 }

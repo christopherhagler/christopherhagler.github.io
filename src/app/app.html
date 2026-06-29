@@ -19,6 +19,7 @@
     @for (link of navLinks; track link.id) {
       <a [routerLink]="['/']" [fragment]="link.id" (click)="closeMenu()">{{ link.label }}</a>
     }
+    <a routerLink="/playground" (click)="closeMenu()">Playground</a>
     <a
       class="nav__cta"
       href="mailto:haglerchristopher@gmail.com"
