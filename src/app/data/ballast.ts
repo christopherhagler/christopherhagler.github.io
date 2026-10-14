@@ -216,7 +216,7 @@ export const BALLAST: AppInfo = {
         paragraphs: [
           `These Terms of Use (the “<b>Terms</b>”) are a binding agreement between you and ${LEGAL_NAME} (“<b>we</b>,” “<b>us</b>”), the developer of the Ballast app for iPhone and Apple Watch, including its widgets and related features (the “<b>App</b>”).`,
           '<b>PLEASE READ CAREFULLY. SECTION 15 REQUIRES MOST DISPUTES TO BE RESOLVED BY BINDING INDIVIDUAL ARBITRATION AND WAIVES CLASS ACTIONS AND JURY TRIALS. YOU MAY OPT OUT AS DESCRIBED THERE. SECTIONS 12 AND 13 LIMIT OUR LIABILITY.</b>',
-          'By tapping “I Agree,” or by downloading, installing or using the App, you agree to these Terms and to our <a href="/apps/ballast/privacy">Privacy Policy</a> and <a href="/apps/ballast/health-data">Consumer Health Data Privacy Policy</a>. If you do not agree, do not use the App.',
+          'By checking the box to agree, tapping “I Agree,” or downloading, installing or using the App, you agree to these Terms and to our <a href="/apps/ballast/privacy">Privacy Policy</a> and <a href="/apps/ballast/health-data">Consumer Health Data Privacy Policy</a>. If you do not agree, do not use the App.',
         ],
       },
       {
