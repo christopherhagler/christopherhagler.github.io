@@ -1,0 +1,235 @@
+/* Soft aurora behind every page (replaces the old animated canvas). */
+.glow {
+  position: fixed;
+  inset: -20vh -10vw auto;
+  height: 90vh;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 50% at 18% 30%, rgba(34, 211, 238, 0.16), transparent 70%),
+    radial-gradient(38% 46% at 82% 18%, rgba(168, 85, 247, 0.2), transparent 70%),
+    radial-gradient(30% 40% at 60% 70%, rgba(244, 114, 182, 0.1), transparent 70%);
+  filter: blur(10px);
+}
+
+/* App shell: fixed navigation + footer. */
+
+:host {
+  display: block;
+}
+
+/* ===================== Nav ===================== */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  transition: border-color 0.3s ease, padding 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+/* The scrolled backdrop lives on a pseudo-element: a backdrop-filter directly
+   on .nav would make the header the containing block for the fixed-position
+   mobile menu panel, which would then be clipped to the header instead of
+   covering the viewport. */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(7, 7, 11, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.nav--scrolled {
+  padding: 12px 24px;
+  border-bottom-color: var(--border);
+}
+.nav--scrolled::before {
+  opacity: 1;
+}
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 600;
+}
+.nav__logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  box-shadow: 0 0 22px var(--glow-violet);
+}
+.nav__brandtext {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+.nav__links a {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+  position: relative;
+}
+.nav__links a:not(.nav__cta):hover {
+  color: var(--text);
+}
+.nav__links a:not(.nav__cta)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: var(--gradient);
+  transition: width 0.25s ease;
+}
+.nav__links a:not(.nav__cta):hover::after,
+.nav__links a.is-active::after {
+  width: 100%;
+}
+.nav__links a.is-active {
+  color: var(--text);
+}
+.nav__cta {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text) !important;
+}
+.nav__cta:hover {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan) !important;
+}
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 60;
+}
+.nav__toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+.nav__toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav__toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.nav__toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile: the nav links become a slide-in panel. */
+@media (max-width: 720px) {
+  .nav__toggle {
+    display: flex;
+  }
+  .nav__brandtext {
+    display: none;
+  }
+  .nav__links {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(78vw, 320px);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1.6rem;
+    padding: 0 32px;
+    background: rgba(10, 10, 16, 0.95);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-left: 1px solid var(--border);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s linear 0.35s;
+  }
+  .nav__links.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav__links a {
+    font-size: 1.2rem;
+  }
+}
+
+/* ===================== Footer ===================== */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 44px 0 28px;
+}
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.6rem 3rem;
+}
+.footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.footer__tagline {
+  margin: 0.4rem 0 0;
+  max-width: 40ch;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+}
+.footer__group {
+  display: grid;
+  gap: 0.45rem;
+}
+.footer__group-title {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+}
+.footer__links a {
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+.footer__links a:hover {
+  color: var(--neon-cyan);
+}
+.footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+}

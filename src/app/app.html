@@ -1,0 +1,53 @@
+<div class="glow" aria-hidden="true"></div>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" [class.nav--scrolled]="scrolled()">
+  <a class="nav__brand" routerLink="/" (click)="closeMenu()">
+    <img class="nav__logo" src="/favicon.svg" width="36" height="36" alt="" />
+    <span class="nav__brandtext">{{ site.name }}</span>
+  </a>
+
+  <button
+    class="nav__toggle"
+    [class.is-open]="menuOpen()"
+    (click)="toggleMenu()"
+    aria-label="Toggle navigation"
+    aria-controls="nav-menu"
+    [attr.aria-expanded]="menuOpen()">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav id="nav-menu" class="nav__links" [class.is-open]="menuOpen()">
+    @for (app of apps; track app.slug) {
+      <a [routerLink]="['/apps', app.slug]" routerLinkActive="is-active" (click)="closeMenu()">{{ app.name }}</a>
+    }
+    <a class="nav__cta" routerLink="/" fragment="apps" (click)="closeMenu()">All apps</a>
+  </nav>
+</header>
+
+<router-outlet />
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__about">
+      <a class="footer__brand" routerLink="/">
+        <img src="/favicon.svg" width="22" height="22" alt="" />
+        {{ site.name }}
+      </a>
+      <p class="footer__tagline">{{ site.tagline }}</p>
+    </div>
+    <nav class="footer__links" aria-label="Apps">
+      @for (app of apps; track app.slug) {
+        <div class="footer__group">
+          <span class="footer__group-title">{{ app.name }}</span>
+          <a [routerLink]="['/apps', app.slug, 'support']">Support</a>
+          <a [routerLink]="['/apps', app.slug, 'privacy']">Privacy</a>
+        </div>
+      }
+    </nav>
+  </div>
+  <div class="container footer__base">
+    <span>© {{ year }} {{ site.name }}</span>
+    <span>Made for iPhone</span>
+  </div>
+</footer>

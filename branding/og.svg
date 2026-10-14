@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Link-preview card (rendered to public/og-image.png). -->
+  <defs>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.55" stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.55" stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.15" cy="0.2" r="0.6">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.85" cy="0.15" r="0.6">
+      <stop offset="0" stop-color="#a855f7" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#07070b"/>
+  <rect width="1200" height="630" fill="url(#glowA)"/>
+  <rect width="1200" height="630" fill="url(#glowB)"/>
+  <rect x="6" y="6" width="1188" height="618" rx="28" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2"/>
+
+  <!-- Mark: a tiny cube -->
+  <g transform="translate(80 200) scale(2.6)">
+    <rect width="64" height="64" rx="15" fill="url(#mark)"/>
+    <path d="M32 13 L49 22.5 L32 32 L15 22.5 Z" fill="#ffffff" fill-opacity="0.95"/>
+    <path d="M15 22.5 L32 32 L32 51 L15 41.5 Z" fill="#07070b" fill-opacity="0.55"/>
+    <path d="M49 22.5 L32 32 L32 51 L49 41.5 Z" fill="#07070b" fill-opacity="0.3"/>
+  </g>
+
+  <text x="290" y="300" fill="#eef0f6" font-family="'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="110" font-weight="700" letter-spacing="-3">Tinyforge</text>
+  <text x="294" y="372" fill="url(#accent)" font-family="'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="44" font-weight="600" letter-spacing="-1">Small apps, forged with care.</text>
+  <text x="296" y="430" fill="#9aa0b4" font-family="'DejaVu Sans Mono', monospace"
+        font-size="24" letter-spacing="3">iPhone games · apps</text>
+</svg>

@@ -1,0 +1,15 @@
+/* ===========================================================================
+   Global stylesheet entry point.
+
+   Page-specific styles live next to their components (src/app/pages/...).
+   Only truly global concerns belong here:
+     tokens — design tokens (colors, fonts, radii)
+     base   — element defaults and utility classes
+     shared — reusable UI primitives used across components
+     reader — long-form text styles (app pages, privacy policies)
+   =========================================================================== */
+
+@use 'styles/tokens';
+@use 'styles/base';
+@use 'styles/shared';
+@use 'styles/reader';

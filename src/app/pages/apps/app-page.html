@@ -1,0 +1,106 @@
+@if (app(); as a) {
+  <article class="app-page">
+    <div class="container app-page__inner">
+      <a class="app-page__back" routerLink="/" fragment="apps">← All apps</a>
+
+      <header class="app-head">
+        <img class="app-head__icon" [src]="a.icon" width="96" height="96" [alt]="a.name + ' app icon'" />
+        <div class="app-head__text">
+          <h1 class="app-head__name">{{ a.name }}</h1>
+          <p class="app-head__tagline">{{ a.tagline }}</p>
+          <div class="app-head__meta">
+            <span>{{ a.platform }}</span>
+            @if (a.status === 'available' && a.appStoreUrl) {
+              <a class="app-chip app-chip--live" [href]="a.appStoreUrl" target="_blank" rel="noopener">App Store ↗</a>
+            } @else {
+              <span class="app-chip">Coming soon</span>
+            }
+          </div>
+        </div>
+      </header>
+
+      <nav class="app-tabs" [attr.aria-label]="a.name + ' pages'">
+        <a [routerLink]="['/apps', a.slug]" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Overview</a>
+        <a [routerLink]="['/apps', a.slug, 'support']" routerLinkActive="is-active">Support</a>
+        <a [routerLink]="['/apps', a.slug, 'privacy']" routerLinkActive="is-active">Privacy</a>
+      </nav>
+
+      @switch (view()) {
+        @case ('overview') {
+          @if (a.screenshot; as s) {
+            <img class="app-shot" [src]="s.src" [width]="s.width" [height]="s.height" [alt]="s.alt" />
+          }
+          <div class="reader__body">
+            @for (p of a.about; track $index) {
+              <p [innerHTML]="p"></p>
+            }
+          </div>
+          <ul class="app-features">
+            @for (f of a.features; track f.title) {
+              <li class="card">
+                <h3>{{ f.title }}</h3>
+                <p>{{ f.text }}</p>
+              </li>
+            }
+          </ul>
+          <ul class="tag-list app-page__tags">
+            @for (tag of a.tags; track tag) {
+              <li>{{ tag }}</li>
+            }
+          </ul>
+        }
+
+        @case ('support') {
+          <div class="reader__body">
+            <h2>Contact</h2>
+            <p>
+              Questions, bug reports or ideas:
+              <a [href]="'mailto:' + a.contactEmail">{{ a.contactEmail }}</a>. If something isn’t working,
+              please include your device model and iOS version.
+            </p>
+            <h2>Common questions</h2>
+          </div>
+          <dl class="app-faq">
+            @for (f of a.faqs; track f.q) {
+              <div class="app-faq__item">
+                <dt>{{ f.q }}</dt>
+                <dd [innerHTML]="f.a"></dd>
+              </div>
+            }
+          </dl>
+          <div class="reader__body">
+            <p>
+              {{ a.name }} collects no personal information. Read the
+              <a [routerLink]="['/apps', a.slug, 'privacy']">privacy policy</a>.
+            </p>
+          </div>
+        }
+
+        @case ('privacy') {
+          <div class="reader__body">
+            <h2 class="app-page__doc-title">Privacy Policy</h2>
+            <p class="app-page__effective">Effective {{ a.privacy.effective }}</p>
+            @for (s of a.privacy.sections; track s.heading) {
+              <h3>{{ s.heading }}</h3>
+              @for (p of s.paragraphs ?? []; track $index) {
+                <p [innerHTML]="p"></p>
+              }
+              @if (s.bullets?.length) {
+                <ul>
+                  @for (b of s.bullets; track $index) {
+                    <li [innerHTML]="b"></li>
+                  }
+                </ul>
+              }
+            }
+          </div>
+        }
+      }
+    </div>
+  </article>
+} @else if (notFound()) {
+  <section class="container app-page app-page--missing">
+    <h1>App not found</h1>
+    <p>That app doesn’t exist or has moved. <a routerLink="/" fragment="apps">See all apps →</a></p>
+  </section>
+}

@@ -1,0 +1,96 @@
+<main id="top">
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="hero__eyebrow" appReveal><span class="pulse"></span> iPhone games &amp; apps</p>
+        <h1 class="hero__title" [appReveal]="80">
+          Small apps,
+          <span class="gradient-text">forged with care.</span>
+        </h1>
+        <p class="hero__lede" [appReveal]="160">
+          {{ site.name }} makes small, polished games and apps for iPhone. Easy to pick up, fun to
+          come back to, and respectful of your privacy.
+        </p>
+        <div class="hero__actions" [appReveal]="240">
+          <a class="btn btn--primary" routerLink="/" fragment="apps">See the apps</a>
+          @if (featured; as f) {
+            <a class="btn btn--ghost" [routerLink]="['/apps', f.slug]">{{ f.name }} →</a>
+          }
+        </div>
+      </div>
+
+      @if (featured; as f) {
+        @if (f.screenshot; as s) {
+          <a class="hero__device" [routerLink]="['/apps', f.slug]" [appReveal]="200" [attr.aria-label]="f.name">
+            <span class="phone">
+              <img [src]="s.src" [width]="s.width" [height]="s.height" [alt]="s.alt" />
+            </span>
+            <img class="hero__badge" [src]="f.icon" width="76" height="76" alt="" />
+          </a>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- ===================== APPS ===================== -->
+  <section class="section" id="apps">
+    <div class="container">
+      <header class="section__head" appReveal>
+        <h2 class="section__title"><span class="gradient-text">Apps</span></h2>
+        <p class="section__sub">Everything {{ site.name }} has made so far.</p>
+      </header>
+
+      @for (app of apps; track app.slug) {
+        <article class="card app-card" appReveal>
+          @if (app.screenshot; as s) {
+            <a class="app-card__shot" [routerLink]="['/apps', app.slug]" [attr.aria-label]="app.name">
+              <img [src]="s.src" [width]="s.width" [height]="s.height" [alt]="s.alt" loading="lazy" />
+            </a>
+          }
+          <div class="app-card__body">
+            <div class="app-card__head">
+              <img class="app-card__icon" [src]="app.icon" width="64" height="64" [alt]="app.name + ' icon'" />
+              <div>
+                <h3 class="app-card__name">{{ app.name }}</h3>
+                <p class="app-card__meta">
+                  {{ app.platform }} ·
+                  @if (app.status === 'available') { On the App Store } @else { Coming soon }
+                </p>
+              </div>
+            </div>
+            <p class="app-card__tagline">{{ app.tagline }}</p>
+            <ul class="tag-list">
+              @for (f of app.features; track f.title) {
+                <li>{{ f.title }}</li>
+              }
+            </ul>
+            <div class="app-card__actions">
+              <a class="btn btn--primary btn--sm" [routerLink]="['/apps', app.slug]">Learn more</a>
+              @if (app.status === 'available' && app.appStoreUrl) {
+                <a class="btn btn--ghost btn--sm" [href]="app.appStoreUrl" target="_blank" rel="noopener">App Store ↗</a>
+              }
+              <a class="app-card__link" [routerLink]="['/apps', app.slug, 'support']">Support</a>
+              <a class="app-card__link" [routerLink]="['/apps', app.slug, 'privacy']">Privacy</a>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- ===================== PRINCIPLES ===================== -->
+  <section class="section section--tight">
+    <div class="container">
+      <ul class="principles">
+        @for (p of principles; track p.title; let i = $index) {
+          <li class="card principle" [appReveal]="i * 80">
+            <span class="principle__icon" aria-hidden="true">{{ p.icon }}</span>
+            <h3>{{ p.title }}</h3>
+            <p>{{ p.text }}</p>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+</main>

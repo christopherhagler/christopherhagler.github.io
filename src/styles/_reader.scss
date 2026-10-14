@@ -1,0 +1,139 @@
+/* ===========================================================================
+   Rendered-markdown (blog post body) styles.
+
+   The post body is injected via [innerHTML], so these rules cannot live in a
+   component stylesheet — Angular's emulated view encapsulation would never
+   match the injected nodes. They must stay global.
+   =========================================================================== */
+
+.reader__body {
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+.reader__body h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--text);
+  margin-bottom: 1.2rem;
+}
+.reader__body h2 {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin: 2rem 0 0.8rem;
+}
+.reader__body h3 {
+  font-size: 1.18rem;
+  color: var(--text);
+  margin: 1.8rem 0 0.7rem;
+}
+.reader__body h4 {
+  font-size: 1.02rem;
+  color: var(--text);
+  margin: 1.6rem 0 0.6rem;
+  font-family: var(--font-display);
+}
+.reader__body p {
+  margin: 0 0 1.1rem;
+}
+.reader__body a {
+  color: var(--neon-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.reader__body strong {
+  color: var(--text);
+}
+.reader__body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--surface-strong);
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+  color: var(--neon-cyan);
+}
+.reader__body pre {
+  background: #07070b;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+  overflow-x: auto;
+  margin: 0 0 1.3rem;
+}
+.reader__body pre code {
+  background: none;
+  padding: 0;
+  color: var(--text-muted);
+}
+.reader__body ul {
+  margin: 0 0 1.2rem;
+  padding-left: 1.2rem;
+}
+.reader__body li {
+  margin-bottom: 0.4rem;
+}
+.reader__body li::marker {
+  color: var(--neon-violet);
+}
+.reader__body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6rem auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.reader__body figure {
+  margin: 1.8rem 0;
+}
+.reader__body figure img {
+  margin-bottom: 0.6rem;
+}
+.reader__body figcaption {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+.reader__body blockquote {
+  margin: 1.5rem 0;
+  padding: 0.6rem 1.2rem;
+  border-left: 3px solid var(--neon-violet);
+  background: var(--surface);
+  border-radius: 0 10px 10px 0;
+  color: var(--text-muted);
+}
+.reader__body blockquote p:last-child {
+  margin-bottom: 0;
+}
+.reader__body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.4rem 0;
+}
+.reader__body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.6rem 0;
+  font-size: 0.92rem;
+}
+.reader__body th,
+.reader__body td {
+  text-align: left;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.reader__body thead th {
+  color: var(--text);
+  font-family: var(--font-display);
+  border-bottom-color: var(--border-strong);
+}
+.reader__body tbody tr:hover {
+  background: var(--surface);
+}
+
+/* KaTeX: let display equations scroll on narrow screens instead of overflowing */
+.reader__body .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.4rem 0;
+}
