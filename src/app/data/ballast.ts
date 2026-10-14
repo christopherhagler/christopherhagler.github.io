@@ -271,6 +271,7 @@ export const BALLAST: AppInfo = {
         heading: '7. Subscriptions and payments',
         bullets: [
           'Some features require a paid subscription or purchase (“Premium”). We may change which features are free. We will not remove your ability to view or erase data you have already logged.',
+          '<b>One-time purchase.</b> A one-time purchase unlocks Premium features without a subscription for as long as we offer and support the App. It does not refer to the lifetime of any person, and it is not a promise of updates, support or availability for any particular period.',
           'Purchases are processed by Apple through your Apple Account under Apple’s terms. We don’t receive your payment information.',
           '<b>Subscriptions renew automatically at the then-current price unless you cancel at least 24 hours before the end of the current period.</b> Your account is charged within 24 hours before the period ends. Price, period and any trial length are shown before you buy.',
           '<b>Free trials convert to a paid subscription automatically unless you cancel at least 24 hours before the trial ends.</b>',
