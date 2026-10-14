@@ -42,6 +42,9 @@
           <span class="footer__group-title">{{ app.name }}</span>
           <a [routerLink]="['/apps', app.slug, 'support']">Support</a>
           <a [routerLink]="['/apps', app.slug, 'privacy']">Privacy</a>
+          @if (app.terms) {
+            <a [routerLink]="['/apps', app.slug, 'terms']">Terms</a>
+          }
         </div>
       }
     </nav>

@@ -3,6 +3,7 @@
      /apps/<slug>          overview
      /apps/<slug>/support  support (the App Store "Support URL")
      /apps/<slug>/privacy  privacy policy (the App Store "Privacy Policy URL")
+     /apps/<slug>/terms, /apps/<slug>/health-data  (only when provided)
    To add an app: add an entry here and put its icon (and an optional
    screenshot) in public/apps/<slug>/. Nothing else needs to change.
 
@@ -10,10 +11,18 @@
    rendered with Angular's sanitizer, so only trusted static content goes here.
    --------------------------------------------------------------------------- */
 
+import { BALLAST } from './ballast';
+
 export interface AppSection {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
+}
+
+/** A legal document page: effective date plus sections. */
+export interface AppDoc {
+  effective: string;
+  sections: AppSection[];
 }
 
 export interface AppFaq {
@@ -39,8 +48,27 @@ export interface AppInfo {
   tags: string[];
   contactEmail: string;
   faqs: AppFaq[];
-  privacy: { effective: string; sections: AppSection[] };
+  privacy: AppDoc;
+  /** Optional Terms of Use, shown at /apps/<slug>/terms. */
+  terms?: AppDoc;
+  /** Optional consumer health data privacy policy (WA/NV/CT), at /apps/<slug>/health-data. */
+  healthData?: AppDoc;
 }
+
+/** Every page an app can have. Overview, support and privacy always exist; the rest only when provided. */
+export const APP_VIEWS = ['overview', 'support', 'privacy', 'terms', 'health-data'] as const;
+export type AppView = (typeof APP_VIEWS)[number];
+
+export const VIEW_PATHS: Record<AppView, string> = {
+  overview: '',
+  support: '/support',
+  privacy: '/privacy',
+  terms: '/terms',
+  'health-data': '/health-data',
+};
+
+export const hasView = (app: AppInfo, view: AppView): boolean =>
+  view === 'terms' ? !!app.terms : view === 'health-data' ? !!app.healthData : true;
 
 const EMAIL = 'tinyforge.apps@gmail.com';
 const mail = `<a href="mailto:${EMAIL}">${EMAIL}</a>`;
@@ -152,6 +180,7 @@ export const APPS: AppInfo[] = [
       ],
     },
   },
+  BALLAST,
 ];
 
 export const appBySlug = (slug: string): AppInfo | undefined => APPS.find((a) => a.slug === slug);

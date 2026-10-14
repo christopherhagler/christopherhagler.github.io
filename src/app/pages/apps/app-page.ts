@@ -3,16 +3,15 @@ import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
-import { appBySlug, type AppInfo } from '../../data/apps';
+import { appBySlug, hasView, VIEW_PATHS, type AppDoc, type AppInfo, type AppView } from '../../data/apps';
 import { SITE as SITE_INFO } from '../../data/site';
 
 const SITE = SITE_INFO.url;
 
-export type AppView = 'overview' | 'support' | 'privacy';
-
 /**
- * One app's pages: overview, support and privacy policy (the last two are the
- * URLs the App Store listing points at). The route's `view` data picks which
+ * One app's pages: overview, support, privacy policy (the URLs the App Store
+ * listing points at) and, when the app provides them, terms of use and a
+ * consumer health data privacy policy. The route's `view` data picks which
  * one; the `:slug` param picks the app from data/apps.ts.
  */
 @Component({
@@ -41,8 +40,23 @@ export class AppPage {
     });
   }
 
+  /** The legal document shown on the current view, if any. */
+  protected legalDoc(app: AppInfo): { title: string; doc: AppDoc } | null {
+    switch (this.view()) {
+      case 'privacy':
+        return { title: 'Privacy Policy', doc: app.privacy };
+      case 'terms':
+        return app.terms ? { title: 'Terms of Use', doc: app.terms } : null;
+      case 'health-data':
+        return app.healthData ? { title: 'Consumer Health Data Privacy Policy', doc: app.healthData } : null;
+      default:
+        return null;
+    }
+  }
+
   private load(slug: string, view: AppView): void {
-    const app = appBySlug(slug) ?? null;
+    const found = appBySlug(slug);
+    const app = found && hasView(found, view) ? found : null;
     this.app.set(app);
     this.view.set(view);
     this.notFound.set(!app);
@@ -51,21 +65,18 @@ export class AppPage {
       return;
     }
 
-    const base = `/apps/${app.slug}`;
     const page = {
-      overview: { path: base, title: `${app.name} — ${app.platform} app`, description: app.tagline },
-      support: {
-        path: `${base}/support`,
-        title: `${app.name} Support`,
-        description: `Help and contact for ${app.name}.`,
-      },
-      privacy: {
-        path: `${base}/privacy`,
-        title: `${app.name} Privacy Policy`,
-        description: `How ${app.name} handles your information.`,
+      overview: { title: `${app.name} — ${app.platform} app`, description: app.tagline },
+      support: { title: `${app.name} Support`, description: `Help and contact for ${app.name}.` },
+      privacy: { title: `${app.name} Privacy Policy`, description: `How ${app.name} handles your information.` },
+      terms: { title: `${app.name} Terms of Use`, description: `The terms that apply when you use ${app.name}.` },
+      'health-data': {
+        title: `${app.name} Consumer Health Data Privacy Policy`,
+        description: `How ${app.name} handles consumer health data.`,
       },
     }[view];
-    const url = SITE + page.path;
+    const path = `/apps/${app.slug}${VIEW_PATHS[view]}`;
+    const url = SITE + path;
     const image = SITE + (app.screenshot?.src ?? app.icon);
 
     this.title.setTitle(`${page.title} — ${SITE_INFO.name}`);

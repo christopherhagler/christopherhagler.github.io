@@ -22,5 +22,6 @@ npm test           # unit tests (Karma + Jasmine; needs Chrome, or set CHROME_BI
 2. Put its icon (and an optional screenshot) in `public/apps/<slug>/`.
 
 That's it: `/apps/<slug>`, `/apps/<slug>/support` and `/apps/<slug>/privacy` are
-prerendered automatically, and the app appears on the home page, in the nav and
+prerendered automatically (plus `/terms` and `/health-data` when the entry has
+`terms` or `healthData`; see `src/app/data/ballast.ts`), and the app appears on the home page, in the nav and
 in the footer. The studio name lives in `src/app/data/site.ts`.

@@ -5,7 +5,7 @@
 
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { APPS } from '../src/app/data/apps';
+import { APP_VIEWS, APPS, hasView, VIEW_PATHS } from '../src/app/data/apps';
 import { SITE } from '../src/app/data/site';
 
 const OUT = 'dist/portfolio/browser';
@@ -13,7 +13,9 @@ const now = new Date().toISOString();
 
 const pages = [
   `${SITE.url}/`,
-  ...APPS.flatMap((a) => ['', '/support', '/privacy'].map((sub) => `${SITE.url}/apps/${a.slug}${sub}`)),
+  ...APPS.flatMap((a) =>
+    APP_VIEWS.filter((view) => hasView(a, view)).map((view) => `${SITE.url}/apps/${a.slug}${VIEW_PATHS[view]}`),
+  ),
 ];
 
 const sitemap =

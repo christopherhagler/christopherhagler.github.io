@@ -1,5 +1,5 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
-import { APPS } from './data/apps';
+import { APP_VIEWS, APPS, hasView, VIEW_PATHS } from './data/apps';
 
 /**
  * Server/prerender route config. Every route is prerendered to static HTML at
@@ -7,10 +7,11 @@ import { APPS } from './data/apps';
  * The per-app routes enumerate their slugs so each page gets its own file.
  */
 export const serverRoutes: ServerRoute[] = [
-  ...['apps/:slug', 'apps/:slug/support', 'apps/:slug/privacy'].map((path) => ({
-    path,
+  ...APP_VIEWS.map((view) => ({
+    path: `apps/:slug${VIEW_PATHS[view]}`,
     renderMode: RenderMode.Prerender as const,
-    getPrerenderParams: async () => APPS.map((app) => ({ slug: app.slug })),
+    getPrerenderParams: async () =>
+      APPS.filter((app) => hasView(app, view)).map((app) => ({ slug: app.slug })),
   })),
   {
     path: '**',

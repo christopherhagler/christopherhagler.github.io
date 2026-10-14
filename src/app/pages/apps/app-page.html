@@ -23,6 +23,9 @@
         <a [routerLink]="['/apps', a.slug]" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Overview</a>
         <a [routerLink]="['/apps', a.slug, 'support']" routerLinkActive="is-active">Support</a>
         <a [routerLink]="['/apps', a.slug, 'privacy']" routerLinkActive="is-active">Privacy</a>
+        @if (a.terms) {
+          <a [routerLink]="['/apps', a.slug, 'terms']" routerLinkActive="is-active">Terms</a>
+        }
       </nav>
 
       @switch (view()) {
@@ -71,29 +74,35 @@
           <div class="reader__body">
             <p>
               {{ a.name }} collects no personal information. Read the
-              <a [routerLink]="['/apps', a.slug, 'privacy']">privacy policy</a>.
+              <a [routerLink]="['/apps', a.slug, 'privacy']">privacy policy</a>@if (a.terms) {
+                and <a [routerLink]="['/apps', a.slug, 'terms']">terms of use</a>}.
             </p>
           </div>
         }
 
-        @case ('privacy') {
-          <div class="reader__body">
-            <h2 class="app-page__doc-title">Privacy Policy</h2>
-            <p class="app-page__effective">Effective {{ a.privacy.effective }}</p>
-            @for (s of a.privacy.sections; track s.heading) {
-              <h3>{{ s.heading }}</h3>
-              @for (p of s.paragraphs ?? []; track $index) {
-                <p [innerHTML]="p"></p>
+        @default {
+          @if (legalDoc(a); as d) {
+            <div class="reader__body">
+              <h2 class="app-page__doc-title">{{ d.title }}</h2>
+              <p class="app-page__effective">Effective {{ d.doc.effective }}</p>
+              @for (s of d.doc.sections; track s.heading) {
+                <h3>{{ s.heading }}</h3>
+                @for (p of s.paragraphs ?? []; track $index) {
+                  <p [innerHTML]="p"></p>
+                }
+                @if (s.bullets?.length) {
+                  <ul>
+                    @for (b of s.bullets; track $index) {
+                      <li [innerHTML]="b"></li>
+                    }
+                  </ul>
+                }
               }
-              @if (s.bullets?.length) {
-                <ul>
-                  @for (b of s.bullets; track $index) {
-                    <li [innerHTML]="b"></li>
-                  }
-                </ul>
+              @if (a.healthData && view() === 'privacy') {
+                <p><a [routerLink]="['/apps', a.slug, 'health-data']">Consumer Health Data Privacy Policy →</a></p>
               }
-            }
-          </div>
+            </div>
+          }
         }
       }
     </div>

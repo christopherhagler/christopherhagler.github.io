@@ -1,4 +1,4 @@
-import { APPS } from './apps';
+import { APPS, appBySlug, hasView } from './apps';
 
 describe('APPS', () => {
   it('has unique, URL-safe slugs', () => {
@@ -18,5 +18,24 @@ describe('APPS', () => {
         expect(app.appStoreUrl).withContext(app.slug).toMatch(/^https:\/\/apps\.apple\.com\//);
       }
     }
+  });
+
+  it('legal documents are complete and have no unfilled placeholders when available', () => {
+    for (const app of APPS) {
+      for (const doc of [app.terms, app.healthData].filter((d) => !!d)) {
+        expect(doc!.sections.length).withContext(app.slug).toBeGreaterThan(0);
+        if (app.status === 'available') {
+          const text = JSON.stringify(doc) + JSON.stringify(app.privacy);
+          expect(text).withContext(`${app.slug} has [PLACEHOLDER] text`).not.toMatch(/\[[A-Z ,]+\]/);
+        }
+      }
+    }
+  });
+
+  it('only offers optional pages for apps that provide them', () => {
+    const ballast = appBySlug('ballast')!;
+    expect(hasView(ballast, 'terms')).toBeTrue();
+    expect(hasView(ballast, 'health-data')).toBeTrue();
+    for (const app of APPS.filter((a) => !a.terms)) expect(hasView(app, 'terms')).toBeFalse();
   });
 });
