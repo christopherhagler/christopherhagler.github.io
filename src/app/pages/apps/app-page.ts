@@ -1,4 +1,4 @@
-import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
+import { afterNextRender, Component, inject, PLATFORM_ID, signal } from '@angular/core';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
@@ -33,6 +33,16 @@ export class AppPage {
   protected readonly notFound = signal(false);
 
   constructor() {
+    // Respect "Reduce Motion": keep looping clips paused on their poster frame.
+    afterNextRender(() => {
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      this.doc.querySelectorAll<HTMLVideoElement>('video.app-clip__video').forEach((v) => {
+        v.removeAttribute('autoplay');
+        v.pause();
+        v.controls = true;
+      });
+    });
+
     // paramMap emits synchronously on subscribe, so content is in place before
     // the app stabilizes — needed for prerendering.
     this.route.paramMap.pipe(takeUntilDestroyed()).subscribe((params) => {

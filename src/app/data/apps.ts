@@ -25,6 +25,18 @@ export interface AppDoc {
   sections: AppSection[];
 }
 
+export interface AppClip {
+  /** Path under public/ to an H.264 MP4 (muted, looping). */
+  src: string;
+  poster: string;
+  width: number;
+  height: number;
+  title: string;
+  caption: string;
+  /** 'watch' clips get a smaller, rounder frame. */
+  device?: 'iphone' | 'watch';
+}
+
 export interface AppFaq {
   q: string;
   a: string;
@@ -42,6 +54,10 @@ export interface AppInfo {
   /** Paths under public/. */
   icon: string;
   screenshot?: { src: string; width: number; height: number; alt: string };
+  /** Short looping clips of the app in use (muted MP4 + poster), shown on the overview. */
+  clips?: AppClip[];
+  /** Extra screenshots, shown as a swipeable strip on the overview. */
+  gallery?: { src: string; width: number; height: number; alt: string }[];
   /** Short paragraphs for the overview page. */
   about: string[];
   features: { title: string; text: string }[];

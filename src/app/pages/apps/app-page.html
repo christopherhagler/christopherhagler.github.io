@@ -33,6 +33,32 @@
           @if (a.screenshot; as s) {
             <img class="app-shot" [src]="s.src" [width]="s.width" [height]="s.height" [alt]="s.alt" />
           }
+          @if (a.clips?.length) {
+            <section class="app-clips" id="see-it" aria-label="See it in action">
+              <h2 class="app-section-title">See it in action</h2>
+              <ul class="app-clips__list">
+                @for (c of a.clips; track c.src) {
+                  <li class="app-clip" [class.app-clip--watch]="c.device === 'watch'">
+                    <video
+                      class="app-clip__video"
+                      [src]="c.src"
+                      [poster]="c.poster"
+                      [width]="c.width"
+                      [height]="c.height"
+                      autoplay
+                      muted
+                      loop
+                      playsinline
+                      preload="metadata"
+                      [attr.aria-label]="c.title + ': ' + c.caption"
+                    ></video>
+                    <h3>{{ c.title }}</h3>
+                    <p>{{ c.caption }}</p>
+                  </li>
+                }
+              </ul>
+            </section>
+          }
           <div class="reader__body">
             @for (p of a.about; track $index) {
               <p [innerHTML]="p"></p>
@@ -46,6 +72,16 @@
               </li>
             }
           </ul>
+          @if (a.gallery?.length) {
+            <section class="app-gallery" aria-label="Screenshots">
+              <h2 class="app-section-title">Screenshots</h2>
+              <ul class="app-gallery__strip">
+                @for (g of a.gallery; track g.src) {
+                  <li><img [src]="g.src" [width]="g.width" [height]="g.height" [alt]="g.alt" loading="lazy" /></li>
+                }
+              </ul>
+            </section>
+          }
           <ul class="tag-list app-page__tags">
             @for (tag of a.tags; track tag) {
               <li>{{ tag }}</li>
